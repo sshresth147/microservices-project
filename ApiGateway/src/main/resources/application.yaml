@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: ApiGateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://USERSERVICE        # Match Eureka service ID
+          predicates:
+            - Path=/users, /users/**  # Accept /users and /users/*
+          filters:
+            - StripPrefix=1            # Removes /users before forwarding
+
+        - id: hotel-service
+          uri: lb://HOTELSERVICE
+          predicates:
+            - Path=/hotels, /hotels/**
+          filters:
+            - StripPrefix=1
+
+        - id: rating-service
+          uri: lb://RATINGSERVICE
+          predicates:
+            - Path=/ratings, /ratings/**
+          filters:
+            - StripPrefix=1
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8089/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true

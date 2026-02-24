@@ -1,7 +1,8 @@
 package com.lcwd.user.service.UserService.services;
 
 import com.lcwd.user.service.UserService.entities.User;
-import org.springframework.boot.webmvc.autoconfigure.WebMvcProperties;
+
+
 
 import java.util.List;
 
